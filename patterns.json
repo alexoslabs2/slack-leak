@@ -1,0 +1,14 @@
+{
+    "Credit Card": "\\b(?:\\d[ -]*?){13,16}\\b",
+    "API Token1": "(?i)(?:api[_-]?key|token|secret)[\\s:]*([A-Za-z0-9-_.]{10,})",
+    "API Token2": "(?i)(?:user[_-]?key|token|secret)[\\s:]*([A-Za-z0-9-_.]{10,})",
+    "API Token3": "\\b[a-zA-Z0-9_-]{20,100}\\b",
+    "API Token4": "\\bAPI_KEY_[a-zA-Z0-9]{20,100}\\b",
+    "API Token5": "\\bBearer\\s+[a-zA-Z0-9_-]{20,100}\\b",
+    "Private Key": "-----BEGIN (RSA|DSA|EC|PRIVATE) KEY-----[\\s\\S]+?-----END (RSA|DSA|EC|PRIVATE) KEY-----",
+    "Password1": "(?i)(password|pass)[:=]\\s*['\"]?([A-Za-z0-9@#$%^&*\\\\(\\\\)_\\\\+\\\\-]+)['\"]?",
+    "Password2": "(?i)(password|passwd|pwd|pass)[\\s:=]+[A-Za-z0-9@#$%^&*=*!?.]{6,}",
+    "Password3": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
+    "Github API Token": "gh[pous]_[A-Za-z0-9]{36,}",
+    "Azure API Token": "eyJ[A-Za-z0-9_-]+\\.eyJ[A-Za-z0-9_-]+\\.eyJ[A-Za-z0-9_-]+"
+}
