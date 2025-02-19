@@ -7,6 +7,7 @@ Slack Leak scans all Slack public and private channels for sensitive information
 * Slack Bot Token
 * Jira API credentials 
 
+Install packages
 `pip install python-dotenv slack_sdk requests`
 
 
