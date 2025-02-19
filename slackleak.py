@@ -12,7 +12,6 @@ from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 from dotenv import load_dotenv
 import json
-import os
 from pathlib import Path
 
 load_dotenv()
