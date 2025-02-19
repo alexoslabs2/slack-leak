@@ -86,7 +86,7 @@ def send_jira_alert(channel_name, issue_type, message_text):
             "project": {"key": JIRA_PROJECT_KEY},
             "summary": f"Sensitive Data Detected in Slack ({channel_name})",
             "description": f"A {issue_type} was detected in channel *{channel_name}*.\n\nDetected message:\n```{message_text}```",
-            "issuetype": {"name": "INCIDENT"} #Change the issutype
+            "issuetype": {"name": "INCIDENT"} #Change the issuetype
         }
     }
 
