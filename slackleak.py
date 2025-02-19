@@ -1,7 +1,7 @@
 ##################################################
 ## Slack Leak
 ##################################################
-## Author: alexos
+## Author: Alexos
 ## Alexos Core Labs
 ##################################################
 
@@ -11,6 +11,9 @@ import requests
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 from dotenv import load_dotenv
+import json
+import os
+from pathlib import Path
 
 load_dotenv()
 
@@ -22,20 +25,37 @@ JIRA_PROJECT_KEY = os.getenv("JIRA_PROJECT_KEY")
 
 slack_client = WebClient(token=SLACK_BOT_TOKEN)
 
-SENSITIVE_PATTERNS = {
-    "Credit Card": r"\b(?:\d[ -]*?){13,16}\b",
-    "API Token1": r"(?i)(?:api[_-]?key|token|secret)[\s:]*([A-Za-z0-9-_.]{10,})",
-    "API Token2": r"(?i)(?:user[_-]?key|token|secret)[\s:]*([A-Za-z0-9-_.]{10,})",
-    "API Token3": r"\b[a-zA-Z0-9_-]{20,100}\b",
-    "API Token4": r"\bAPI_KEY_[a-zA-Z0-9]{20,100}\b",
-    "API Token5": r"\bBearer\s+[a-zA-Z0-9_-]{20,100}\b",
-    "Private Key": r"-----BEGIN (RSA|DSA|EC|PRIVATE) KEY-----[\s\S]+?-----END (RSA|DSA|EC|PRIVATE) KEY-----",
-    "Password1": r"(?i)(password|pass)[=:]\s*['\"]?([A-Za-z0-9@#\$%\^&\*\(\)_\+\-]+)['\"]?",
-    "Password2": r"(?i)(password|passwd|pwd|pass)[\s:=]+[A-Za-z0-9@#$%^&+=*!?.]{6,}",
-    "Password3": r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$",
-    "Github API Token": r"gh[pous]_[A-Za-z0-9]{36,}",
-    "Azure API Token": r"eyJ[A-Za-z0-9_-]+\.eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+"
-}
+class PatternLoader:
+    def __init__(self, patterns_file="patterns.json"):
+        self.patterns_file = patterns_file
+        self.patterns = {}
+        self.load_patterns()
+    
+    def load_patterns(self):
+        """Load regex patterns from file."""
+        try:
+            if os.path.exists(self.patterns_file):
+                with open(self.patterns_file, 'r') as f:
+                    self.patterns = json.load(f)
+            else:
+                raise FileNotFoundError(f"Patterns file '{self.patterns_file}' not found.")
+            
+            # Validate patterns
+            for key, pattern in self.patterns.items():
+                try:
+                    re.compile(pattern)
+                except re.error as e:
+                    print(f"Warning: Invalid regex pattern for '{key}': {str(e)}")
+                    
+        except json.JSONDecodeError as e:
+            raise ValueError(f"Invalid JSON format in patterns file: {str(e)}")
+
+    def reload_patterns(self):
+        """Reload patterns from file."""
+        self.load_patterns()
+
+pattern_loader = PatternLoader()
+SENSITIVE_PATTERNS = pattern_loader.patterns
 
 def scan_messages(channel_id, channel_name):
    
