@@ -9,8 +9,9 @@ Slack Leak scans all Slack public and private channels for sensitive information
 
 `pip install python-dotenv slack_sdk requests`
 
-* Slack Bot Token Permissions
 
+* Slack Bot Token Permissions
+  
 channels:history
 
 channels:read
@@ -41,6 +42,7 @@ users:read
 
 users:read.email
 
+
 * Create a .env file
 
 `SLACK_BOT_TOKEN=xoxb-your-slack-bot-token`
@@ -52,6 +54,7 @@ users:read.email
 `JIRA_API_TOKEN=your-jira-api-token`
 
 `JIRA_PROJECT_KEY=PROJECT`
+
 
 * Run the script in a Docker container, Kubernetes pod, or virtual machine
 
