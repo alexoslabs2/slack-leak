@@ -32,7 +32,6 @@ class PatternLoader:
         self.load_patterns()
     
     def load_patterns(self):
-        """Load regex patterns from file."""
         try:
             if os.path.exists(self.patterns_file):
                 with open(self.patterns_file, 'r') as f:
@@ -40,7 +39,7 @@ class PatternLoader:
             else:
                 raise FileNotFoundError(f"Patterns file '{self.patterns_file}' not found.")
             
-            # Validate patterns
+            
             for key, pattern in self.patterns.items():
                 try:
                     re.compile(pattern)
@@ -51,8 +50,7 @@ class PatternLoader:
             raise ValueError(f"Invalid JSON format in patterns file: {str(e)}")
 
     def reload_patterns(self):
-        """Reload patterns from file."""
-        self.load_patterns()
+       self.load_patterns()
 
 pattern_loader = PatternLoader()
 SENSITIVE_PATTERNS = pattern_loader.patterns
