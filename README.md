@@ -1,4 +1,4 @@
-# slack-leak
+# Slack Leak
 
 Slack Leak scans all Slack public and private channels for sensitive information such as credit cards, API tokens, private keys, passwords and creating Jira tickets
 
