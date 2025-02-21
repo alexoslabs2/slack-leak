@@ -62,8 +62,6 @@ users:read.email
 
 # Jira ticket example
 
-![image](https://github.com/user-attachments/assets/426ecc75-5374-47af-a48a-5a32504ea98d)
-
 ![image](https://github.com/user-attachments/assets/63329bab-4ffd-40b7-8105-d9945bde57b4)
 
 
